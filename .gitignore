@@ -1,0 +1,67 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb~ 
+*.nbconvert.ipynb
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*.so
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.venv/
+env/
+venv/
+*.egg-info/
+
+# Virtual environment (conda/anaconda)
+*.conda
+*.env
+*.yml
+.conda/
+conda-meta/
+*.bak
+
+# PDF / HTML exports
+*.pdf
+*.html
+
+# LaTeX intermediate files
+*.aux
+*.out
+*.log
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.tex
+*.bbl
+*.blg
+notebook.tex
+notebook.log
+missfont.log
+main_files/
+
+# Data files
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.h5
+*.json
+*.pickle
+*.pkl
+
+# Notebook metadata
+*.nbmetadata
+
+# VSCode
+.vscode/
+
+# Mac系统额外垃圾文件
+.DS_Store
