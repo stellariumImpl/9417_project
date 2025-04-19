@@ -1,0 +1,26 @@
+name: py310
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - ipykernel
+  - notebook
+  - xgboost
+  - lightgbm
+  - shap
+  - imbalanced-learn
+  - umap-learn
+  - tqdm
+  - tabulate
+  - pip
+  - pip:
+      - sklearn-compat
+      - numba
