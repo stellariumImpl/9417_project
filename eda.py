@@ -261,16 +261,43 @@ def detect_outliers_iqr(X, top_n=10, prefix="outlier"):
     plt.savefig(output_path)
     plt.close()
 
-def replace_outliers_iqr(X, threshold=1.5):
+# def replace_outliers_iqr(X, threshold=1.5):
+#     """
+#     Replace outliers in the dataset using the IQR method and median replacement.
+
+#     Parameters:
+#     - X (pd.DataFrame): Feature dataset.
+#     - threshold (float): Multiplier for IQR to define outlier bounds (default: 1.5).
+
+#     Returns:
+#     - pd.DataFrame: Cleaned dataset with outliers replaced by the median.
+#     """
+#     X_clean = X.copy()
+#     for col in X_clean.columns:
+#         q1 = X_clean[col].quantile(0.25)
+#         q3 = X_clean[col].quantile(0.75)
+#         iqr = q3 - q1
+#         lower = q1 - threshold * iqr
+#         upper = q3 + threshold * iqr
+#         median = X_clean[col].median()
+#         X_clean.loc[(X_clean[col] < lower) | (X_clean[col] > upper), col] = median
+#     return X_clean
+
+def winsorize_iqr(X, threshold=1.5):
     """
-    Replace outliers in the dataset using the IQR method and median replacement.
+    Apply IQR-based winsorization to cap outliers in each feature column.
+
+    This method clips each feature's values to lie within the range:
+        [Q1 - threshold * IQR, Q3 + threshold * IQR],
+    where Q1 and Q3 are the 25th and 75th percentiles, respectively, and
+    IQR = Q3 - Q1.
 
     Parameters:
     - X (pd.DataFrame): Feature dataset.
-    - threshold (float): Multiplier for IQR to define outlier bounds (default: 1.5).
+    - threshold (float): Multiplier for IQR to define clipping bounds (default: 1.5).
 
     Returns:
-    - pd.DataFrame: Cleaned dataset with outliers replaced by the median.
+    - pd.DataFrame: Cleaned dataset with outlier values capped using IQR method.
     """
     X_clean = X.copy()
     for col in X_clean.columns:
@@ -279,9 +306,10 @@ def replace_outliers_iqr(X, threshold=1.5):
         iqr = q3 - q1
         lower = q1 - threshold * iqr
         upper = q3 + threshold * iqr
-        median = X_clean[col].median()
-        X_clean.loc[(X_clean[col] < lower) | (X_clean[col] > upper), col] = median
+        X_clean[col] = X_clean[col].clip(lower=lower, upper=upper)
     return X_clean
+
+
 
 def analyze_skewness_and_normality(X, top_n=10, prefix="normality"):
     """
@@ -365,7 +393,7 @@ def main():
         plot_high_variance_features(X_train, num_features=5, prefix="high_variance")
 
         print("\nAnalyzing feature correlation...\n")
-        analyze_feature_correlation(X_train, threshold=0.9, top_n=100, prefix="correlation")
+        analyze_feature_correlation(X_train, threshold=0.9, top_n=300, prefix="correlation")
 
         print("\nAnalyzing PCA cumulative variance...\n")
         analyze_pca_variance(X_train, prefix="pca")
@@ -380,7 +408,7 @@ def main():
         analyze_skewness_and_normality(X_train, top_n=10, prefix="normality_before")
 
         print("\nReplacing outliers with median using IQR method...\n")
-        X_clean = replace_outliers_iqr(X_train)
+        X_clean = winsorize_iqr(X_train)
 
         print("\nRevalidating outliers after cleaning...\n")
         detect_outliers_iqr(X_clean, top_n=10, prefix="outlier_after")
