@@ -74,4 +74,28 @@ python RF_HandleShift.py
 python Xgb_HandleShift.py
 python MLP_Deep_HandleShift.py
 ```
+- **Logistic Regression Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run two py files (Logistic Regression.py, LogisticRegression_HandleShift.py)
+```
+- **Random Forest Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run two py files (RF.py, RF_HandleShift.py)
+```
 
+- **XGB Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run two py files (Xgb.py, Xgb_HandleShift.py)
+```
+- **MLP_Deep Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run two py files (MLP_Deep.py, MLP_Deep_HandleShift.py)
+```
+- **Cost-Sensitive Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run py file (Cost-Sensitive XGBoost.py)
+```
+- **DANN_XGBoost Runing Method**
+```bash
+Just download the dataset to the "data/" folder and then run py file (DANN_XGBoost_HandleShift.py)
+```
